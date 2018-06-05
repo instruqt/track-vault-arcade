@@ -1,0 +1,14 @@
+#!/bin/bash
+ERRORS=$(curl -s http://localhost:8200/v1/sys/seal-status | jq -r '.errors')
+if [ "$ERRORS" != "null" ]; then
+  fail-message "Vault is not yet initialized"
+  exit 1
+fi
+
+SEALED=$(curl -s http://localhost:8200/v1/sys/seal-status | jq -r .sealed)
+if [ "$SEALED" == "true" ]; then
+  fail-message "Vault is not unsealed"
+  exit 1
+fi
+
+exit 0

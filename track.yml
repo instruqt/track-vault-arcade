@@ -1,0 +1,136 @@
+id: l3ddywkqnj
+type: track
+version: 0.0.1
+slug: vault-arcade
+icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/vault.png
+title: Vault arcade
+teaser: A short description of the track.
+description: |-
+  A long description of the track.
+
+  You can use any GitHub flavoured markdown.
+tags: []
+challenges:
+- id: gvyybozeag
+  slug: unseal
+  title: Unseal
+  teaser: Initialize Vault and unseal Vault
+  notes:
+  - type: text
+    contents: https://www.vaultproject.io/intro/getting-started/deploy.html
+  difficulty: basic
+  assignment: |-
+    Vault is running on http://localhost:8200.
+    Initialize it with 1 key share and a threshold of 1.
+
+    Then unseal it.
+  timelimit: 300
+  tabs:
+  - type: terminal
+    title: Shell
+    hostname: vault
+- id: kozzd8v66g
+  slug: store-a-secret
+  title: Write a secret
+  teaser: Write a secret to Vault
+  notes:
+  - type: text
+    contents: https://www.vaultproject.io/docs/commands/write.html
+  difficulty: basic
+  assignment: |-
+    The assignment the participant needs to complete in order to proceed.
+
+    You can use any GitHub flavoured markdown.
+  timelimit: 300
+  tabs:
+  - type: terminal
+    title: Shell
+    hostname: vault
+- id: gx33bnle2g
+  slug: read-a-secret
+  title: Read a secret
+  teaser: A short description of the challenge.
+  notes:
+  - type: text
+    contents: https://www.vaultproject.io/docs/commands/read.html
+  difficulty: basic
+  assignment: |-
+    The assignment the participant needs to complete in order to proceed.
+
+    You can use any GitHub flavoured markdown.
+  timelimit: 300
+  tabs:
+  - type: terminal
+    title: Shell
+    hostname: vault
+- id: gd448ym5ng
+  slug: mount-a-backend
+  title: Mount a backend
+  teaser: A short description of the challenge.
+  notes:
+  - type: text
+    contents: Replace this text with your own text
+  difficulty: basic
+  assignment: |-
+    The assignment the participant needs to complete in order to proceed.
+
+    You can use any GitHub flavoured markdown.
+  timelimit: 300
+  tabs:
+  - type: terminal
+    title: Shell
+    hostname: vault
+- id: gw33b8aelk
+  slug: generate-credentials
+  title: Generate dynamic credentials
+  teaser: A short description of the challenge.
+  notes:
+  - type: text
+    contents: Replace this text with your own text
+  difficulty: basic
+  assignment: |-
+    The assignment the participant needs to complete in order to proceed.
+
+    You can use any GitHub flavoured markdown.
+  timelimit: 300
+  tabs:
+  - type: terminal
+    title: Shell
+    hostname: vault
+- id: 7q66oz9e6g
+  slug: one-time-passwords
+  title: One time passwords
+  teaser: A short description of the challenge.
+  notes:
+  - type: text
+    contents: Replace this text with your own text
+  difficulty: basic
+  assignment: |-
+    The assignment the participant needs to complete in order to proceed.
+
+    You can use any GitHub flavoured markdown.
+  timelimit: 300
+  tabs:
+  - type: terminal
+    title: Shell
+    hostname: vault
+- id: 7raab4xewg
+  slug: rekey-vault
+  title: Re-key Vault
+  teaser: A short description of the challenge.
+  notes:
+  - type: text
+    contents: Replace this text with your own text
+  difficulty: basic
+  assignment: |-
+    The assignment the participant needs to complete in order to proceed.
+
+    You can use any GitHub flavoured markdown.
+  timelimit: 300
+  tabs:
+  - type: terminal
+    title: Shell
+    hostname: vault
+developers:
+- erik@instruqt.com
+published: false
