@@ -1,15 +1,31 @@
-#!/bin/sh
-#
-# This is a sample check script. Rename this file to check-$CONTAINER
-# (where $container is the name of the container as defined in your config.yml),
-# and replace this content with your own script.
-#
-# This script will be run when you check the challenge.
-#
-# Remember that the exit code is important. See the documentation
-# for more information.
-#
+#!/bin/bash
 
-echo "This is the check script"
+# Check if the database backend was mounted.
+ERRORS=$(curl -s -H "X-Vault-Token: $(cat /root/.vault-token)" -X LIST http://localhost:8200/v1/database/config | jq -r .errors[])
+if [ ! -z "$ERRORS" ]; then
+  fail-message "The database secret backend was not mounted"
+  exit 1
+fi
+
+# Check if the database backend was configured.
+CONFIGURATION=$(curl -s -H "X-Vault-Token: $(cat /root/.vault-token)" http://localhost:8200/v1/database/config/postgres | jq .data)
+if [ "$CONFIGURATION" == "null" ]; then
+  fail-message "The postgres configuration does not exist"
+  exit 1
+fi
+
+# Check if the connection url is correct.
+CONNECTION_URL=$(echo "$CONFIGURATION" | jq -r .connection_details.connection_url)
+if [ "$CONNECTION_URL" != "postgresql://{{username}}:{{password}}@postgres:5432/?sslmode=disable" ]; then
+  fail-message "The connection url is not correct. It should be postgresql://{{username}}:{{password}}@postgres:5432/?sslmode=disable"
+  exit 1
+fi
+
+# Check if the username is correct.
+USERNAME=$(echo "$CONFIGURATION" | jq -r .connection_details.username)
+if [ "$USERNAME" != "postgres" ]; then
+  fail-message "The username is not postgres"
+  exit 1
+fi
 
 exit 0

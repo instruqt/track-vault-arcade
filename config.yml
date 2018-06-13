@@ -12,13 +12,12 @@ configuration:
     Resources:
       Memory: 128
     Shell: /bin/bash
-  - Image: mysql:8.0.11
-    Name: mysql
+  - Image: postgres:10.4-alpine
+    Name: postgres
     Privileged: false
     Ports:
-      - 3306
+      - 5432
     Environment:
-      MYSQL_USER: vault
-      MYSQ_PASSWORD: notsecure
+      POSTGRES_PASSWORD: notsecure
     Resources:
       Memory: 128

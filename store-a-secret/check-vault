@@ -1,15 +1,23 @@
-#!/bin/sh
-#
-# This is a sample check script. Rename this file to check-$CONTAINER
-# (where $container is the name of the container as defined in your config.yml),
-# and replace this content with your own script.
-#
-# This script will be run when you check the challenge.
-#
-# Remember that the exit code is important. See the documentation
-# for more information.
-#
+#!/bin/bash
+# Check if the secret was set.
+SECRET=$(curl -s -H "X-Vault-Token: $(cat /root/.vault-token)" http://localhost:8200/v1/secret/highscore | jq .data)
+if [ "$SECRET" == "null" ]; then
+  fail-message "No secret with path secret/highscore"
+  exit 1
+fi
 
-echo "This is the check script"
+# Check if the user value of the secret is correct.
+USER=$(echo "$SECRET" | jq -r .user)
+if [ "$USER" != "evilcorp" ]; then
+  fail-message "Did not find the correct user in the secret"
+  exit 1
+fi
+
+# Check if the score value of the secret is correct.
+SCORE=$(echo "$SECRET" | jq -r .score)
+if [ "$SCORE" != "10000" ]; then
+  fail-message "Did not find the correct score in the secret"
+  exit 1
+fi
 
 exit 0

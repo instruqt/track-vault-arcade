@@ -1,5 +1,13 @@
 #!/bin/bash
-UNSEAL_KEY=$(vault operator init -key-shares=1 -key-threshold=1 | grep "Unseal Key 1" | awk -F ": " '{ print $2 }')
-vault operator unseal "$UNSEAL_KEY"
+# Initialize the vault.
+INIT=$(vault operator init -key-shares=1 -key-threshold=1)
+
+# Unseal the vault.
+KEY=$(echo "$INIT" | grep "Unseal Key 1" | awk -F ": " '{ print $2 }')
+vault operator unseal "$KEY"
+
+# Login with the root token.
+TOKEN=$(echo "$INIT" | grep "Initial Root Token" | awk -F ": " '{print $2}')
+vault login "$TOKEN"
 
 exit 0

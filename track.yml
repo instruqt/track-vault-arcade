@@ -4,11 +4,8 @@ version: 0.0.1
 slug: vault-arcade
 icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/vault.png
 title: Vault arcade
-teaser: A short description of the track.
-description: |-
-  A long description of the track.
-
-  You can use any GitHub flavoured markdown.
+teaser: Are you the Master of Secrets?
+description: Vault arcade track.
 tags: []
 challenges:
 - id: gvyybozeag
@@ -21,9 +18,9 @@ challenges:
   difficulty: basic
   assignment: |-
     Vault is running on http://localhost:8200.
-    Initialize it with 1 key share and a threshold of 1.
+    Initialize it with *1 key share* and a *threshold of 1*.
 
-    Then unseal it.
+    Then unseal it and log in with the *root token*.
   timelimit: 300
   tabs:
   - type: terminal
@@ -38,9 +35,9 @@ challenges:
     contents: https://www.vaultproject.io/docs/commands/write.html
   difficulty: basic
   assignment: |-
-    The assignment the participant needs to complete in order to proceed.
+    Write a secret to Vault on the path *secret/highscore*.
 
-    You can use any GitHub flavoured markdown.
+    The secret should contain *user=evilcorp* and *score=10000*.
   timelimit: 300
   tabs:
   - type: terminal
@@ -49,15 +46,12 @@ challenges:
 - id: gx33bnle2g
   slug: read-a-secret
   title: Read a secret
-  teaser: A short description of the challenge.
+  teaser: Read a secret from Vault
   notes:
   - type: text
     contents: https://www.vaultproject.io/docs/commands/read.html
   difficulty: basic
-  assignment: |-
-    The assignment the participant needs to complete in order to proceed.
-
-    You can use any GitHub flavoured markdown.
+  assignment: Read the secret from the previous challenge, located at the path *secret/highscore*.
   timelimit: 300
   tabs:
   - type: terminal
@@ -66,15 +60,17 @@ challenges:
 - id: gd448ym5ng
   slug: mount-a-backend
   title: Mount a backend
-  teaser: A short description of the challenge.
+  teaser: Mount a secret backend
   notes:
   - type: text
-    contents: Replace this text with your own text
+    contents: https://www.vaultproject.io/docs/secrets/databases/index.html
   difficulty: basic
   assignment: |-
-    The assignment the participant needs to complete in order to proceed.
+    Mount the database secrets backend.
 
-    You can use any GitHub flavoured markdown.
+    Configure it to use the PostgreSQL server located at *postgres:5432* with *username=postgres* and *password=notsecure*.
+
+    Don't forget to add *?sslmode=disable* at the end of the connection string.
   timelimit: 300
   tabs:
   - type: terminal
