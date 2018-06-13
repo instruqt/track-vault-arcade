@@ -11,13 +11,8 @@ if [ "$SEALED" == "true" ]; then
   exit 1
 fi
 
-# Get the unseal key in case we need it later.
-VAULT_UNSEAL=$(cat /root/.bash_history | grep -E "^vault operator unseal" | awk '{print $4}')
-echo "$VAULT_UNSEAL" > /vault/unseal
-
-# Get the root token in case we need it later.
-VAULT_TOKEN=$(cat /root/.bash_history | grep -E "^vault login" | awk '{print $3}')
-if [ -z "$VAULT_TOKEN" ]; then
+# Check if the login was successful.
+if [ ! -f "/root/.vault-token" ]; then
   fail-message "No login with the root token found"
   exit 1
 fi

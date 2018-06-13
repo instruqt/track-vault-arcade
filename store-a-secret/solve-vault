@@ -1,3 +1,3 @@
 #!/bin/bash
-vault kv put secret/highscore user=evilcorp score=10000
+vault kv put secret/highscore user=mrrobot score=10000
 exit 0

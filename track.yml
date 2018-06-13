@@ -37,7 +37,7 @@ challenges:
   assignment: |-
     Write a secret to Vault on the path *secret/highscore*.
 
-    The secret should contain *user=evilcorp* and *score=10000*.
+    The secret should contain *user=mrrobot* and *score=10000*.
   timelimit: 300
   tabs:
   - type: terminal
@@ -65,12 +65,9 @@ challenges:
   - type: text
     contents: https://www.vaultproject.io/docs/secrets/databases/index.html
   difficulty: basic
-  assignment: |-
-    Mount the database secrets backend.
-
-    Configure it to use the PostgreSQL server located at *postgres:5432* with *username=postgres* and *password=notsecure*.
-
-    Don't forget to add *?sslmode=disable* at the end of the connection string.
+  assignment: "Mount the database secrets backend. \nThen configure the *postgres*
+    role to use the PostgreSQL server, with the connection_url *postgresql://postgres:notsecure@postgres:5432/?sslmode=disable*.\n\nThe
+    allowed_roles should be *postgres* and the *plugin_name=postgres-database-plugin*."
   timelimit: 300
   tabs:
   - type: terminal
@@ -79,15 +76,18 @@ challenges:
 - id: gw33b8aelk
   slug: generate-credentials
   title: Generate dynamic credentials
-  teaser: A short description of the challenge.
+  teaser: Generate dynamic postgres credentials
   notes:
   - type: text
-    contents: Replace this text with your own text
+    contents: https://www.vaultproject.io/docs/secrets/databases/postgresql.html
   difficulty: basic
   assignment: |-
-    The assignment the participant needs to complete in order to proceed.
+    Configure the *postgres* role so that it can create database credentials with the following SQL statements.
 
-    You can use any GitHub flavoured markdown.
+    CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
+    GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";
+
+    You can test the configuration by reading from the *database/creds/postgres* endpoint.
   timelimit: 300
   tabs:
   - type: terminal
@@ -96,32 +96,31 @@ challenges:
 - id: 7q66oz9e6g
   slug: one-time-passwords
   title: One time passwords
-  teaser: A short description of the challenge.
+  teaser: Configure Vault as TOTP provider
   notes:
   - type: text
-    contents: Replace this text with your own text
+    contents: https://www.vaultproject.io/docs/secrets/totp/index.html
   difficulty: basic
   assignment: |-
-    The assignment the participant needs to complete in order to proceed.
+    Enable the TOTP secrets engine and configure Vault to be a *TOTP provider* on the path *totp/keys/mrrobot*.
 
-    You can use any GitHub flavoured markdown.
+    The issuer should be *Vault* and the account_name should be *mrrobot@instruqt.com*.
   timelimit: 300
   tabs:
   - type: terminal
     title: Shell
     hostname: vault
 - id: 7raab4xewg
-  slug: rekey-vault
-  title: Re-key Vault
-  teaser: A short description of the challenge.
+  slug: generate-totp
+  title: Generate TOTP
+  teaser: Generate one-time passwords
   notes:
   - type: text
-    contents: Replace this text with your own text
   difficulty: basic
   assignment: |-
-    The assignment the participant needs to complete in order to proceed.
+    Configure the previously configured Vault TOTP provider as a TOTP code generator.
 
-    You can use any GitHub flavoured markdown.
+    For convenience we set the TOTP_SECRET environment variable to the Vault TOTP secret url.
   timelimit: 300
   tabs:
   - type: terminal

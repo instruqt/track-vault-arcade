@@ -8,7 +8,7 @@ fi
 
 # Check if the user value of the secret is correct.
 USER=$(echo "$SECRET" | jq -r .user)
-if [ "$USER" != "evilcorp" ]; then
+if [ "$USER" != "mrrobot" ]; then
   fail-message "Did not find the correct user in the secret"
   exit 1
 fi

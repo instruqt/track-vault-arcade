@@ -1,0 +1,3 @@
+#!/bin/bash
+vault write totp/keys/mrrobot url="$TOTP_SECRET"
+exit 0
