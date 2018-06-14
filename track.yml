@@ -65,9 +65,9 @@ challenges:
   - type: text
     contents: https://www.vaultproject.io/docs/secrets/databases/index.html
   difficulty: basic
-  assignment: "Mount the database secrets backend. \nThen configure the *postgres*
-    role to use the PostgreSQL server, with the connection_url *postgresql://postgres:notsecure@postgres:5432/?sslmode=disable*.\n\nThe
-    allowed_roles should be *postgres* and the *plugin_name=postgres-database-plugin*."
+  assignment: |-
+    Enable the database secrets backend.
+    Then configure *database/config/postgres* so it uses connection_url *postgresql://{{username}}:{{password}}@postgres:5432/?sslmode=disable*, *allowed_roles=postgres*, *username=postgres*, *password=notsecure* and the *plugin_name=postgresql-database-plugin*."
   timelimit: 300
   tabs:
   - type: terminal
@@ -82,9 +82,9 @@ challenges:
     contents: https://www.vaultproject.io/docs/secrets/databases/postgresql.html
   difficulty: basic
   assignment: |-
-    Configure the *postgres* role so that it can create database credentials with the following SQL statements.
+    Configure *database/roles/postgres* so that it can create database credentials with the following SQL statements.
 
-    CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
+    CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';
     GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";
 
     You can test the configuration by reading from the *database/creds/postgres* endpoint.
