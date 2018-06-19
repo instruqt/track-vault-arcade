@@ -5,7 +5,10 @@ slug: vault-arcade
 icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/vault.png
 title: Vault arcade
 teaser: Are you the Master of Secrets?
-description: Vault arcade track.
+description: |-
+  Are you the Master of Secrets?
+
+  This track is part of the HashiDays Amsterdam 2018 Instruqt Arcade Challenge. Play the track on our Arcade machine, or try your luck here.
 tags: []
 challenges:
 - id: gvyybozeag
@@ -14,7 +17,22 @@ challenges:
   teaser: Initialize Vault and unseal Vault
   notes:
   - type: text
-    contents: https://www.vaultproject.io/intro/getting-started/deploy.html
+    contents: |-
+      Vault is a tool for securely accessing secrets.
+
+      A secret is anything that you want to tightly control access to, such as API keys, passwords, or certificates. Vault provides a unified interface to any secret, while providing tight access control and recording a detailed audit log.
+  - type: text
+    contents: When a Vault server is started, it starts in a [sealed state](https://www.vaultproject.io/docs/concepts/seal.html).
+      In this state, Vault is configured to know where and how to access the physical
+      storage, but doesn't know how to decrypt any of it.
+  - type: text
+    contents: |-
+      When the Vault is initialized it generates an encryption key which is used to protect all the data. That key is protected by a master key.
+
+      By default Vault [splits the master key into 5 shares](https://en.wikipedia.org/wiki/Shamir's_Secret_Sharing), and sets a threshold of any 3 of those that are required to reconstruct the master key and unseal the Vault.
+  - type: text
+    contents: During [initialization](https://www.vaultproject.io/docs/commands/operator/init.html)
+      the number of key shares and the unseal threshold can be specified.
   difficulty: basic
   assignment: |-
     Vault is running on http://localhost:8200.
@@ -32,7 +50,10 @@ challenges:
   teaser: Write a secret to Vault
   notes:
   - type: text
-    contents: https://www.vaultproject.io/docs/commands/write.html
+    contents: |-
+      The [write](https://www.vaultproject.io/docs/commands/write.html) command writes data to Vault at the given path.
+
+      The data can be credentials, secrets, configuration, or arbitrary data. The specific behavior of this command is determined at the thing mounted at the given path.
   difficulty: basic
   assignment: |-
     Write a secret to Vault on the path *secret/highscore*.
@@ -49,7 +70,10 @@ challenges:
   teaser: Read a secret from Vault
   notes:
   - type: text
-    contents: https://www.vaultproject.io/docs/commands/read.html
+    contents: |-
+      The [read](https://www.vaultproject.io/docs/commands/read.html) command reads data from Vault at the given path.
+
+      This can be used to read secrets, generate dynamic credentials, get configuration details, and more.
   difficulty: basic
   assignment: Read the secret from the previous challenge, located at the path *secret/highscore*.
   timelimit: 300
@@ -58,16 +82,37 @@ challenges:
     title: Shell
     hostname: vault
 - id: gd448ym5ng
-  slug: mount-a-backend
-  title: Mount a backend
-  teaser: Mount a secret backend
+  slug: enable-a-backend
+  title: Enable a secrets backend
+  teaser: Enable a secrets backend
   notes:
   - type: text
-    contents: https://www.vaultproject.io/docs/secrets/databases/index.html
+    contents: |-
+      Secrets engines are components which store, generate, or encrypt data.
+
+      Secrets engines are incredibly flexible, so it is easiest to think about them in terms of their function. Secrets engines are provided some set of data, they take some action on that data, and they return a result.
+  - type: text
+    contents: |-
+      Some secrets engines simply store and read data - like encrypted Redis/Memcached.
+
+      Other secrets engines connect to other services and generate dynamic credentials on demand.
+
+      And even other secrets engines provide encryption as a service, totp generation, certificates, and much more.
+  - type: text
+    contents: |-
+      Secrets engines are enabled at a "path" in Vault.
+
+      Each secrets engine defines its own paths and properties. To the user, secrets engines behave similar to a virtual filesystem. Just like normal secrets they support operations like read, write, and delete.
+  - type: text
+    contents: |-
+      The [database secrets engine](https://www.vaultproject.io/docs/secrets/databases/index.html) generates database credentials dynamically based on configured roles.
+
+      It works
+      with a number of [different databases](https://www.vaultproject.io/api/secret/databases/postgresql.html) through a plugin interface.
   difficulty: basic
   assignment: |-
     Enable the database secrets backend.
-    Then configure *database/config/postgres* so it uses connection_url *postgresql://{{username}}:{{password}}@postgres:5432/?sslmode=disable*, *allowed_roles=postgres*, *username=postgres*, *password=notsecure* and the *plugin_name=postgresql-database-plugin*."
+    Then configure *database/config/postgres* so it uses connection_url *postgresql://{{username}}:{{password}}@postgres:5432/?sslmode=disable*, *allowed_roles=postgres*, *username=postgres*, *password=notsecure* and the *plugin_name=postgresql-database-plugin*.
   timelimit: 300
   tabs:
   - type: terminal
@@ -79,7 +124,13 @@ challenges:
   teaser: Generate dynamic postgres credentials
   notes:
   - type: text
-    contents: https://www.vaultproject.io/docs/secrets/databases/postgresql.html
+    contents: For Vault to be able to generate database credentials, a [role](https://www.vaultproject.io/api/secret/databases/index.html#create-role)
+      needs to be configured.
+  - type: text
+    contents: |-
+      Roles use SQL [statements](https://www.vaultproject.io/api/secret/databases/postgresql.html#statements) to create, revoke, rollback and/or renew credentials.
+
+      Roles can be created by writing to the `database/roles/<role-name>` path.
   difficulty: basic
   assignment: |-
     Configure *database/roles/postgres* so that it can create database credentials with the following SQL statements.
@@ -99,7 +150,20 @@ challenges:
   teaser: Configure Vault as TOTP provider
   notes:
   - type: text
-    contents: https://www.vaultproject.io/docs/secrets/totp/index.html
+    contents: |-
+      Another secrets engine in Vault is the [TOTP generator](https://www.vaultproject.io/docs/secrets/totp/index.html).
+
+      The TOTP secrets engine generates time-based credentials according to the TOTP standard.
+  - type: text
+    contents: |-
+      The TOTP secrets engine can act as a TOTP code [generator](https://www.vaultproject.io/docs/secrets/totp/index.html#as-a-generator).
+
+      In this mode, it can replace traditional TOTP generators like Google Authenticator. It provides an added layer of security since the ability to generate codes is guarded by policies and the entire process is audited.
+  - type: text
+    contents: |-
+      The TOTP secrets engine can also act as a TOTP [provider](https://www.vaultproject.io/docs/secrets/totp/index.html#as-a-provider).
+
+      In this mode, it can be used to generate new keys and validate passwords generated using those keys.
   difficulty: basic
   assignment: |-
     Enable the TOTP secrets engine and configure Vault to be a *TOTP provider* on the path *totp/keys/mrrobot*.
@@ -116,6 +180,10 @@ challenges:
   teaser: Generate one-time passwords
   notes:
   - type: text
+    contents: |-
+      The TOTP secrets engine can act as a TOTP code [generator](https://www.vaultproject.io/docs/secrets/totp/index.html#as-a-generator).
+
+      In this mode, it can replace traditional TOTP generators like Google Authenticator. It provides an added layer of security since the ability to generate codes is guarded by policies and the entire process is audited.
   difficulty: basic
   assignment: |-
     Configure the previously configured Vault TOTP provider as a TOTP code generator.
@@ -127,6 +195,7 @@ challenges:
     title: Shell
     hostname: vault
 developers:
+- ade@instruqt.com
 - erik@instruqt.com
 - jackson.nic@gmail.com
 published: false
