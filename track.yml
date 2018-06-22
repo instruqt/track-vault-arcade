@@ -9,7 +9,10 @@ description: |-
   Are you the Master of Secrets?
 
   This track is part of the HashiDays Amsterdam 2018 Instruqt Arcade Challenge. Play the track on our Arcade machine, or try your luck here.
-tags: []
+tags:
+- HashiCorp
+- Vault
+- arcade
 challenges:
 - id: gvyybozeag
   slug: unseal
