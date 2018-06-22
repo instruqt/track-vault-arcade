@@ -1,4 +1,4 @@
-id: l3ddywkqnj
+id: ppcyf81eye4o
 type: arcade
 version: 0.0.1
 slug: vault-arcade
@@ -9,9 +9,12 @@ description: |-
   Are you the Master of Secrets?
 
   This track is part of the HashiDays Amsterdam 2018 Instruqt Arcade Challenge. Play the track on our Arcade machine, or try your luck here.
-tags: []
+tags:
+- HashiCorp
+- Vault
+- arcade
 challenges:
-- id: gvyybozeag
+- id: xm0b6oc9lhaq
   slug: unseal
   title: Unseal
   teaser: Initialize Vault and unseal Vault
@@ -44,7 +47,7 @@ challenges:
   - type: terminal
     title: Shell
     hostname: vault
-- id: kozzd8v66g
+- id: yzvybxtbecui
   slug: store-a-secret
   title: Write a secret
   teaser: Write a secret to Vault
@@ -64,7 +67,7 @@ challenges:
   - type: terminal
     title: Shell
     hostname: vault
-- id: gx33bnle2g
+- id: j9lwcu6lvo4n
   slug: read-a-secret
   title: Read a secret
   teaser: Read a secret from Vault
@@ -81,7 +84,7 @@ challenges:
   - type: terminal
     title: Shell
     hostname: vault
-- id: gd448ym5ng
+- id: xltyy9iif2rk
   slug: enable-a-backend
   title: Enable a secrets backend
   teaser: Enable a secrets backend
@@ -118,7 +121,7 @@ challenges:
   - type: terminal
     title: Shell
     hostname: vault
-- id: gw33b8aelk
+- id: cxi5utwf0xxv
   slug: generate-credentials
   title: Generate dynamic credentials
   teaser: Generate dynamic postgres credentials
@@ -144,7 +147,7 @@ challenges:
   - type: terminal
     title: Shell
     hostname: vault
-- id: 7q66oz9e6g
+- id: i9x4u1hjh5kw
   slug: one-time-passwords
   title: One time passwords
   teaser: Configure Vault as TOTP provider
@@ -174,7 +177,7 @@ challenges:
   - type: terminal
     title: Shell
     hostname: vault
-- id: 7raab4xewg
+- id: ipc87wbbk8re
   slug: generate-totp
   title: Generate TOTP
   teaser: Generate one-time passwords
@@ -197,5 +200,4 @@ challenges:
 developers:
 - ade@instruqt.com
 - erik@instruqt.com
-- jackson.nic@gmail.com
 published: false
