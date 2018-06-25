@@ -1,6 +1,0 @@
-#!/bin/bash
-
-TOTP_SECRET=$(curl -s -H "X-Vault-Token: $(cat /root/.vault-token)" -X POST -d '{ "generate": true, "issuer": "Vault", "account_name": "mrrobot@instruqt.com" }' http://localhost:8200/v1/totp/keys/mrrobot | jq -r .data.url)
-echo "export TOTP_SECRET=\"$TOTP_SECRET\"" >> .bashrc
-
-exit 0

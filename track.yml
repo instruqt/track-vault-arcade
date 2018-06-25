@@ -172,26 +172,8 @@ challenges:
     Enable the TOTP secrets engine and configure Vault to be a *TOTP provider* on the path *totp/keys/mrrobot*.
 
     The issuer should be *Vault* and the account_name should be *mrrobot@instruqt.com*.
-  timelimit: 300
-  tabs:
-  - type: terminal
-    title: Shell
-    hostname: vault
-- id: 7raab4xewg
-  slug: generate-totp
-  title: Generate TOTP
-  teaser: Generate one-time passwords
-  notes:
-  - type: text
-    contents: |-
-      The TOTP secrets engine can act as a TOTP code [generator](https://www.vaultproject.io/docs/secrets/totp/index.html#as-a-generator).
 
-      In this mode, it can replace traditional TOTP generators like Google Authenticator. It provides an added layer of security since the ability to generate codes is guarded by policies and the entire process is audited.
-  difficulty: basic
-  assignment: |-
-    Configure the previously configured Vault TOTP provider as a TOTP code generator.
-
-    For convenience we set the TOTP_SECRET environment variable to the Vault TOTP secret url.
+    You can test the configuration by reading from the *totp/code/mrrobot* endpoint.
   timelimit: 300
   tabs:
   - type: terminal
