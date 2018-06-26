@@ -12,6 +12,7 @@ description: |-
 tags:
 - HashiCorp
 - Vault
+- arcade
 challenges:
 - id: gvyybozeag
   slug: unseal
