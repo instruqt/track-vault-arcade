@@ -1,23 +1,18 @@
-template: containers
-configuration:
-  Containers:
-  - Image: gcr.io/instruqt/vault:arcade
-    Name: vault
-    Ports:
-      - 8200
-    Privileged: false
-    Environment:
-      VAULT_ADDR: "http://localhost:8200"
-      VAULT_LOG: "debug"
-    Resources:
-      Memory: 128
-    Shell: /bin/bash
-  - Image: postgres:10.4-alpine
-    Name: postgres
-    Privileged: false
-    Ports:
-      - 5432
-    Environment:
-      POSTGRES_PASSWORD: notsecure
-    Resources:
-      Memory: 128
+version: "2"
+containers:
+- name: vault
+  image: gcr.io/instruqt/vault:arcade
+  shell: /bin/bash
+  ports:
+  - 8200
+  environment:
+    VAULT_ADDR: http://localhost:8200
+    VAULT_LOG: debug
+  memory: 128
+- name: postgres
+  image: postgres:10.4-alpine
+  ports:
+  - 5432
+  environment:
+    POSTGRES_PASSWORD: notsecure
+  memory: 128

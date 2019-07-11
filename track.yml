@@ -1,23 +1,36 @@
-id: l3ddywkqnj
-type: arcade
-version: 0.0.1
 slug: vault-arcade
-icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/vault.png
+id: 61kmdzzbrh27
+type: arcade
 title: Vault
 teaser: Are you the Master of Secrets?
 description: |-
   Are you the Master of Secrets?
 
   This track is part of the HashiDays Amsterdam 2018 Instruqt Arcade Challenge. Play the track on our Arcade machine, or try your luck here.
+icon: https://storage.googleapis.com/instruqt-frontend/arcade/images/vault-arcade-animated.gif
 tags:
 - HashiCorp
 - Vault
 - arcade
+owner: instruqt
+developers:
+- anubhav9mishra@gmail.com
+- erik@instruqt.com
+- ade@instruqt.com
+- jackson.nic@gmail.com
+private: false
+published: true
 challenges:
-- id: gvyybozeag
-  slug: unseal
+- slug: unseal
+  id: ddhxx63ywlyp
+  type: challenge
   title: Unseal
   teaser: Initialize Vault and unseal Vault
+  assignment: |-
+    Vault is running on http://localhost:8200.
+    Initialize it with *1 key share* and a *threshold of 1*.
+
+    Then unseal it and log in with the *root token*.
   notes:
   - type: text
     contents: |-
@@ -36,58 +49,59 @@ challenges:
   - type: text
     contents: During [initialization](https://www.vaultproject.io/docs/commands/operator/init.html)
       the number of key shares and the unseal threshold can be specified.
-  difficulty: basic
-  assignment: |-
-    Vault is running on http://localhost:8200.
-    Initialize it with *1 key share* and a *threshold of 1*.
-
-    Then unseal it and log in with the *root token*.
-  timelimit: 300
   tabs:
-  - type: terminal
-    title: Shell
+  - title: Shell
+    type: terminal
     hostname: vault
-- id: kozzd8v66g
-  slug: store-a-secret
+  difficulty: basic
+  timelimit: 300
+- slug: store-a-secret
+  id: pdzde5ailxip
+  type: challenge
   title: Write a secret
   teaser: Write a secret to Vault
+  assignment: |-
+    Write a secret to Vault on the path *secret/highscore*.
+
+    The secret should contain *user=mrrobot* and *score=10000*.
   notes:
   - type: text
     contents: |-
       The [write](https://www.vaultproject.io/docs/commands/write.html) command writes data to Vault at the given path.
 
       The data can be credentials, secrets, configuration, or arbitrary data. The specific behavior of this command is determined at the thing mounted at the given path.
-  difficulty: basic
-  assignment: |-
-    Write a secret to Vault on the path *secret/highscore*.
-
-    The secret should contain *user=mrrobot* and *score=10000*.
-  timelimit: 300
   tabs:
-  - type: terminal
-    title: Shell
+  - title: Shell
+    type: terminal
     hostname: vault
-- id: gx33bnle2g
-  slug: read-a-secret
+  difficulty: basic
+  timelimit: 300
+- slug: read-a-secret
+  id: mzd1lf1ve2na
+  type: challenge
   title: Read a secret
   teaser: Read a secret from Vault
+  assignment: Read the secret from the previous challenge, located at the path *secret/highscore*.
   notes:
   - type: text
     contents: |-
       The [read](https://www.vaultproject.io/docs/commands/read.html) command reads data from Vault at the given path.
 
       This can be used to read secrets, generate dynamic credentials, get configuration details, and more.
-  difficulty: basic
-  assignment: Read the secret from the previous challenge, located at the path *secret/highscore*.
-  timelimit: 300
   tabs:
-  - type: terminal
-    title: Shell
+  - title: Shell
+    type: terminal
     hostname: vault
-- id: gd448ym5ng
-  slug: enable-a-backend
+  difficulty: basic
+  timelimit: 300
+- slug: enable-a-backend
+  id: gadkhh7sa7cd
+  type: challenge
   title: Enable a secrets backend
   teaser: Enable a secrets backend
+  assignment: |-
+    Enable the database secrets backend.
+    Then configure *database/config/postgres* so it uses connection_url *postgresql://{{username}}:{{password}}@postgres:5432/?sslmode=disable*, *allowed_roles=postgres*, *username=postgres*, *password=notsecure* and the *plugin_name=postgresql-database-plugin*.
   notes:
   - type: text
     contents: |-
@@ -112,19 +126,24 @@ challenges:
 
       It works
       with a number of [different databases](https://www.vaultproject.io/api/secret/databases/postgresql.html) through a plugin interface.
-  difficulty: basic
-  assignment: |-
-    Enable the database secrets backend.
-    Then configure *database/config/postgres* so it uses connection_url *postgresql://{{username}}:{{password}}@postgres:5432/?sslmode=disable*, *allowed_roles=postgres*, *username=postgres*, *password=notsecure* and the *plugin_name=postgresql-database-plugin*.
-  timelimit: 300
   tabs:
-  - type: terminal
-    title: Shell
+  - title: Shell
+    type: terminal
     hostname: vault
-- id: gw33b8aelk
-  slug: generate-credentials
+  difficulty: basic
+  timelimit: 300
+- slug: generate-credentials
+  id: dv2pfafmip06
+  type: challenge
   title: Generate dynamic credentials
   teaser: Generate dynamic postgres credentials
+  assignment: |-
+    Configure *database/roles/postgres* so that it can create database credentials with the following SQL statements.
+
+    CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';
+    GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";
+
+    You can test the configuration by reading from the *database/creds/postgres* endpoint.
   notes:
   - type: text
     contents: For Vault to be able to generate database credentials, a [role](https://www.vaultproject.io/api/secret/databases/index.html#create-role)
@@ -134,23 +153,23 @@ challenges:
       Roles use SQL [statements](https://www.vaultproject.io/api/secret/databases/postgresql.html#statements) to create, revoke, rollback and/or renew credentials.
 
       Roles can be created by writing to the `database/roles/<role-name>` path.
-  difficulty: basic
-  assignment: |-
-    Configure *database/roles/postgres* so that it can create database credentials with the following SQL statements.
-
-    CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';
-    GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";
-
-    You can test the configuration by reading from the *database/creds/postgres* endpoint.
-  timelimit: 300
   tabs:
-  - type: terminal
-    title: Shell
+  - title: Shell
+    type: terminal
     hostname: vault
-- id: 7q66oz9e6g
-  slug: one-time-passwords
+  difficulty: basic
+  timelimit: 300
+- slug: one-time-passwords
+  id: tczfzqo8mwqy
+  type: challenge
   title: One time passwords
   teaser: Configure Vault as TOTP provider
+  assignment: |-
+    Enable the TOTP secrets engine and configure Vault to be a *TOTP provider* on the path *totp/keys/mrrobot*.
+
+    The issuer should be *Vault* and the account_name should be *mrrobot@instruqt.com*.
+
+    You can test the configuration by reading from the *totp/code/mrrobot* endpoint.
   notes:
   - type: text
     contents: |-
@@ -167,21 +186,10 @@ challenges:
       The TOTP secrets engine can also act as a TOTP [provider](https://www.vaultproject.io/docs/secrets/totp/index.html#as-a-provider).
 
       In this mode, it can be used to generate new keys and validate passwords generated using those keys.
-  difficulty: basic
-  assignment: |-
-    Enable the TOTP secrets engine and configure Vault to be a *TOTP provider* on the path *totp/keys/mrrobot*.
-
-    The issuer should be *Vault* and the account_name should be *mrrobot@instruqt.com*.
-
-    You can test the configuration by reading from the *totp/code/mrrobot* endpoint.
-  timelimit: 300
   tabs:
-  - type: terminal
-    title: Shell
+  - title: Shell
+    type: terminal
     hostname: vault
-developers:
-- ade@instruqt.com
-- erik@instruqt.com
-- jackson.nic@gmail.com
-- anubhav9mishra@gmail.com
-published: true
+  difficulty: basic
+  timelimit: 300
+checksum: "7832718660717159109"
